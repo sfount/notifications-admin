@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from itertools import chain
 
 import pytz
-from flask import request
+from flask import render_template, request
 from flask_login import current_user
 from flask_wtf import FlaskForm as Form
 from flask_wtf.file import FileAllowed
@@ -111,6 +111,48 @@ def get_next_days_until(until):
         )
         for i in range(0, days + 1)
     ]
+
+
+# class StringField(Field):
+#     """
+#     This field is the base for most of the more complicated fields, and
+#     represents an ``<input type="text">``.
+#     """
+#     widget = widgets.TextInput()
+
+#     def process_formdata(self, valuelist):
+#         if valuelist:
+#             self.data = valuelist[0]
+#         elif self.data is None:
+#             self.data = ''
+
+#     def _value(self):
+#         return text_type(self.data) if self.data is not None else ''
+
+# when a widget is called it returns Markup()
+
+
+class govukTextField(StringField):
+    def __init__(self, label='', validators=None, hint=None, **kwargs):
+        super(govukTextField, self).__init__(label, validators, **kwargs)
+        self.hint = hint
+
+    def widget(self, field, **kwargs):
+        # error messages
+        error_message = None
+        if field.errors:
+            error_message = {"text": " ".join(field.errors).strip()}
+
+        # convert to parameters that govuk understands
+        params = {
+                    "id": field.id,
+                    "name": field.name,
+                    "label": {"text": field.label.text},
+                    "value": field.data,
+                    "hint": self.hint,
+                    "errorMessage": error_message,
+                }
+        return render_template('govuk-jinja-components/input/template.jinja', params=params)
 
 
 class MultiCheckboxField(SelectMultipleField):
