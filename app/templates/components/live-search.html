@@ -3,7 +3,8 @@
     show=False,
     form=None,
     label=None,
-    autofocus=False
+    autofocus=False,
+    page_title=""
 ) %}
     {%- set search_label = label or form.search.label.text %}
 
@@ -13,7 +14,7 @@
     } %}
 
     {% if autofocus %}
-      {% set x=param_extensions.__setitem__("attributes", {"data-module": "autofocus"}) %}
+      {% set x=param_extensions.__setitem__("attributes", {"data-module": "autofocus", "aria-label": page_title + " - " + search_label }) %}
     {% endif %}
 
     {% if show %}
