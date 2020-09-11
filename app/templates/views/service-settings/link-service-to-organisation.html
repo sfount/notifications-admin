@@ -22,7 +22,7 @@
     show=True, form=search_form,
     label='Search by name',
     autofocus=True,
-    page_title=page_title
+    page_title=page_title + " – " + current_service.name + " – GOV.UK Notify"
   ) }}
   {% call form_wrapper() %}
     {% if has_organisations %}

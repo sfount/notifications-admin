@@ -30,7 +30,7 @@
           form=search_form,
           label='Search branding styles by name',
           autofocus=True,
-          page_title=page_title
+          page_title=page_title + " – " + current_org.name + " – GOV.UK Notify"
         ) }}
         {{ radios(form.branding_style) }}
       </div>
