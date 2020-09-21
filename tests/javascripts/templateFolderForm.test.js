@@ -261,6 +261,8 @@ describe('TemplateFolderForm', () => {
 
       expect(document.querySelector('button[value=add-new-template]')).not.toBeNull();
       expect(document.querySelector('button[value=add-new-folder]')).not.toBeNull();
+      expect(document.querySelector('button[value=add-new-template]').getAttribute('aria-expanded')).toEqual('false');
+      expect(document.querySelector('button[value=add-new-folder]').getAttribute('aria-expanded')).toEqual('false');
       expect(visibleCounter).not.toBeNull();
 
     });
@@ -384,6 +386,8 @@ describe('TemplateFolderForm', () => {
       const cancelLink = formControls.querySelector('.js-cancel');
 
       expect(cancelLink).not.toBeNull();
+      expect(cancelLink.querySelector('.govuk-visually-hidden')).not.toBeNull();
+      expect(cancelLink.querySelector('.govuk-visually-hidden').textContent.trim()).toEqual('new template');
 
     });
 
@@ -469,6 +473,16 @@ describe('TemplateFolderForm', () => {
 
     });
 
+    test("should show a 'Cancel' link", () => {
+
+      const cancelLink = formControls.querySelector('.js-cancel');
+
+      expect(cancelLink).not.toBeNull();
+      expect(cancelLink.querySelector('.govuk-visually-hidden')).not.toBeNull();
+      expect(cancelLink.querySelector('.govuk-visually-hidden').textContent.trim()).toEqual('new folder');
+
+    });
+
     test("should focus the textbox", () => {
 
       expect(document.activeElement).toBe(textbox);
@@ -544,6 +558,8 @@ describe('TemplateFolderForm', () => {
 
       expect(formControls.querySelector('button[value=move-to-new-folder]')).not.toBeNull();
       expect(formControls.querySelector('button[value=move-to-existing-folder]')).not.toBeNull();
+      expect(formControls.querySelector('button[value=move-to-new-folder]').getAttribute('aria-expanded')).toEqual('false');
+      expect(formControls.querySelector('button[value=move-to-existing-folder]').getAttribute('aria-expanded')).toEqual('false');
 
     });
 
@@ -659,6 +675,16 @@ describe('TemplateFolderForm', () => {
 
       });
 
+      test("should show a 'Cancel' link", () => {
+
+        const cancelLink = formControls.querySelector('.js-cancel');
+
+        expect(cancelLink).not.toBeNull();
+        expect(cancelLink.querySelector('.govuk-visually-hidden')).not.toBeNull();
+        expect(cancelLink.querySelector('.govuk-visually-hidden').textContent.trim()).toEqual('move to folder');
+
+      });
+
       test("focus the 'Choose a folder' fieldset", () => {
 
         expect(document.activeElement).toBe(formControls.querySelector('#move_to'));
@@ -728,6 +754,16 @@ describe('TemplateFolderForm', () => {
 
         // check textbox has a label
         expect(formControls.querySelector(`label[for=${textbox.getAttribute('id')}]`)).not.toBeNull();
+
+      });
+
+      test("should show a 'Cancel' link", () => {
+
+        const cancelLink = formControls.querySelector('.js-cancel');
+
+        expect(cancelLink).not.toBeNull();
+        expect(cancelLink.querySelector('.govuk-visually-hidden')).not.toBeNull();
+        expect(cancelLink.querySelector('.govuk-visually-hidden').textContent.trim()).toEqual('add to new folder');
 
       });
 
